@@ -1,31 +1,82 @@
 # Proyecto: Integración Python + C + ARM64 Assembly
-**Asignatura:** Programación de Sistemas / Arquitectura de Computadoras
-**Autor:** Torres Moreno Diego Antonio
-**Fecha:** 15 de abril de 2026
 
-## Descripción
-Este proyecto implementa una librería de alto rendimiento en **ARM64 Assembly** integrada con **Python** mediante la librería `ctypes`. El objetivo es demostrar cómo las rutinas de bajo nivel pueden optimizar procesos matemáticos críticos y cómo se comunican con lenguajes de alto nivel.
-
-## Objetivo
-Desarrollar y comprender la interacción entre lenguajes de alto y bajo nivel, aplicando el ABI de ARM64 para el paso de parámetros y optimización de registros.
-
-## Tecnologías
-* **Python 3**: Interfaz de usuario y pruebas de rendimiento.
-* **C**: Puente (Wrapper) de integración.
-* **ARM64 Assembly**: Rutinas matemáticas optimizadas.
-* **GDB & Makefile**: Herramientas de depuración y automatización.
-
-## Funcionalidades (Estado del Proyecto)
-- [x] Estructura de directorios y entorno (Termux/Linux).
-- [x] Definición del Wrapper en C (`bridge.c`).
-- [ ] Implementación de rutinas en ARM64 (`ops.S`).
-- [ ] Automatización con Makefile.
-- [ ] Análisis de rendimiento (Profiling).
-
-## Estructura del Repositorio
-* `codigo/bridge.c`: Declaración de funciones externas.
-* `codigo/ops.S`: Código fuente en Ensamblador (En desarrollo).
-* `codigo/app.py`: Script principal de Python (En desarrollo).
+## Autor
+* **Nombre:** Torres Moreno Diego Antonio
+* **Matrícula:** 23212077
+* **Asignatura:** Lenguajes de Interfaz
+* **Institución:** TECNM Campus ITT
+* **Fecha:** 16 de abril de 2026
 
 ---
-*Este repositorio es parte de una autopráctica dirigida para el dominio de arquitectura ARM64.*
+
+## Descripción
+Este proyecto implementa una librería de alto rendimiento desarrollada en **ARM64 Assembly**, integrada con **Python** a través de un puente en **C** utilizando la librería `ctypes`. El enfoque principal es el análisis de la eficiencia computacional al ejecutar procesos críticos directamente en el hardware.
+
+## Objetivo
+Demostrar la interoperabilidad entre lenguajes de alto y bajo nivel, analizando el impacto del uso de instrucciones nativas en el rendimiento del sistema mediante una comparativa empírica.
+
+---
+
+
+## Evidencia de Ejecución
+Enlace para ver la grabación del flujo completo en **asciinema**:
+> **[Ver demostración en asciinema]([https://asciinema.org/a/tu_link_aqui](https://asciinema.org/a/AvnXnN8Aw1NkKBQV))**
+
+## Tecnologías y Herramientas
+* **Lenguajes:** Python 3, C (Clang), ARM64 Assembly (AArch64)
+* **Entorno:** Termux / Linux (ARM64) - Formato binario ELF
+* **Depuración:** GDB (GNU Debugger) para inspección de registros (x0-x7)
+* **Automatización:** Makefile Profesional
+
+## Funcionalidades
+* **Operaciones básicas:** Implementación de suma, resta, multiplicación, máximo y mínimo en nivel de registros.
+* **Procesamiento de arreglos:** Rutinas optimizadas para suma de elementos, conteo de números pares y producto punto.
+* **Integración Multi-lenguaje:** Uso de una interfaz de puente en C para la invocación de funciones nativas desde un script de Python.
+
+---
+
+## 📁 Estructura del Proyecto
+```
+26a-pycasm-DeftOZK/
+├── codigo/
+│   ├── app.py      
+│   ├── test.c      
+│   └── ops.S       
+├── main.c          
+├── Makefile        
+└── README.md       
+```
+
+## Instalación y Uso
+
+1. Compilación
+Genera la librería compartida y el binario de debug:
+```make```
+
+3. Ejecución
+Corre el análisis de rendimiento:
+```python app.py```
+
+3. Depuración (GDB)
+```gdb ./test_debug```
+
+## Resultados esperados
+
+| Método | Tiempo de Ejecución | Optimización |
+| :--- | :--- | :--- |
+| Python | 0.105969 s | Base (Interpretado) |
+| C | 0.045210 s | Media (Compilado con Clang) |
+| Assembly | 0.015731 s | Máxima (Nativo) |
+
+### Análisis Técnico:
+
+* **Overhead:** Python presenta tiempos mayores debido a la interpretación de bytecode y la gestión dinámica de objetos.
+* **Eficiencia ASM:** El uso directo de registros de 64 bits y la reducción de saltos condicionales en los loops permite una ejecución 6.7 veces más rápida que Python en procesamiento de arreglos.
+
+## Conclusiones
+
+Pude validar que el uso de ARM64 Assembly reduce drásticamente los tiempos de ejecución en tareas críticas, permitiendo un control total sobre el hardware. El proyecto me permitió comprender la Application Binary Interface (ABI) de ARM64, específicamente cómo se gestionan los parámetros en los registros x0 a x7. 
+
+## Autorreflexión
+
+El uso de un Makefile profesional me fue de bastante ayuda para automatizar la compilación y evitar errores de enlace manual. La integración de GDB fue fundamental para validar que los valores en los registros coincidieran con los resultados esperados antes de pasar a la fase de Python.
