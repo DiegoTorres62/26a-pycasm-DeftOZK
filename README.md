@@ -20,7 +20,7 @@ Demostrar la interoperabilidad entre lenguajes de alto y bajo nivel, analizando 
 
 ## Evidencia de Ejecución
 Enlace para ver la grabación del flujo completo en **asciinema**:
-> **[Ver demostración en asciinema]([https://asciinema.org/a/tu_link_aqui](https://asciinema.org/a/AvnXnN8Aw1NkKBQV))**
+> **[Ver demostración en asciinema](https://asciinema.org/a/AvnXnN8Aw1NkKBQV)**
 
 ## Tecnologías y Herramientas
 * **Lenguajes:** Python 3, C (Clang), ARM64 Assembly (AArch64)
