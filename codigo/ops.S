@@ -39,16 +39,21 @@ min:
     ret
 
 .global sum_array
+    .text
+    .p2align 2
+
 sum_array:
-    mov x2, #0
-    mov x3, #0
-loop_sum:
-    cmp x3, x1
-    b.ge end_sum
-    ldr w4, [x0, x3, LSL #2]
-    add x2, x2, x4
-    add x3, x3, #1
-    b loop_sum
-end_sum:
-    mov x0, x2
-    ret
+    mov x2, 0           // x2 será nuestro acumulador (suma = 0)
+    cbz x1, end_loop    // Si el número de elementos (x1) es 0, saltar al final
+
+loop:
+    ldr w3, [x0]        // Cargar un entero (32 bits) desde la memoria apuntada por x0
+    sxtw x3, w3         // Extender el valor a 64 bits en x3 (para la suma larga)
+    add x2, x2, x3      // suma (x2) = suma (x2) + valor actual (x3)
+    add x0, x0, 4       // Mover el puntero del arreglo 4 bytes adelante (siguiente entero)
+    subs x1, x1, 1      // Restar 1 al contador de elementos (x1--)
+    b.ne loop           // Si el contador no es cero, repetir el ciclo
+
+end_loop:
+    mov x0, x2          // Mover el resultado final a x0 (el registro de retorno para C)
+    ret                 // Regresar al programa principal
