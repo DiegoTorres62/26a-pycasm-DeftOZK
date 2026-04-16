@@ -1,31 +1,28 @@
-# ───────────────────────────────────────────────
+# ───────────────────────────────────────────────────────────────
 #  MAKEFILE · AUTOMATIZACIÓN DE COMPILACIÓN
-# ───────────────────────────────────────────────
+# ───────────────────────────────────────────────────────────────
 #  Asignatura: Lenguajes de Interfaz en TECNM Campus ITT
 #  Autor(a): Torres Moreno Diego Antonio
-#  Fecha: 2026/04/15
-# ───────────────────────────────────────────────
+#  Fecha: 2026/04/16
+# ───────────────────────────────────────────────────────────────
 #  Descripción:
-# Orquesta la compilación de los archivos .c y .S,
-# generando la librería dinámica en la carpeta build.
-# ───────────────────────────────────────────────
+#  Orquesta la compilación de archivos .c y .S, generando el
+#  ejecutable de debug y la librería compartida para Python.
+# ───────────────────────────────────────────────────────────────
 
 CC = clang
-CFLAGS = -O2 -fPIC -g
-LDFLAGS = -shared
-BUILD = build
+CFLAGS = -g -O0
 
-all: $(BUILD)/libops.so
+all: test_debug libops.so
 
-$(BUILD)/libops.so: bridge.o ops.o
-	$(CC) $(LDFLAGS) -o $@ $^
+# Genera el ejecutable para GDB usando main.c y el ASM
+test_debug: main.c ops.S
+	$(CC) $(CFLAGS) main.c ops.S -o test_debug
 
-bridge.o: bridge.c
-	$(CC) $(CFLAGS) -c bridge.c
+# Genera la librería dinámica para Python
+libops.so: ops.S
+	$(CC) -shared -o libops.so ops.S
 
-ops.o: ops.S
-	$(CC) $(CFLAGS) -c ops.S
-
+# Limpia solo los archivos binarios generados
 clean:
-	rm -f *.o
-	rm -rf $(BUILD)/libops.so
+	rm -f test_debug libops.so *.o
