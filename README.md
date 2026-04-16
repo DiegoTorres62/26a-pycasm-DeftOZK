@@ -8,7 +8,7 @@ _italic text_
 ```
 # Proyecto: Integración Python + C + ARM64 Assembly
 **Asignatura:** Programación de Sistemas / Arquitectura de Computadoras
-**Autor:** [TU NOMBRE COMPLETO]
+**Autor:** Torres Moreno Diego Antonio
 **Fecha:** 15 de abril de 2026
 
 ## 📝 Descripción
